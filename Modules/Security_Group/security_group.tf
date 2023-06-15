@@ -30,6 +30,7 @@ resource "aws_security_group" "dev-callahan-marketplace" {
   }
 }
 
+
 output "security_group_id" {
   value = aws_security_group.dev-callahan-marketplace.id
 }

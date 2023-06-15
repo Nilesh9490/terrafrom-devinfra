@@ -17,7 +17,7 @@ module "vpc" {
 
 
   tags = {
-    Projectname   = var. project_name_tag
+    Projectname   = var.project_name_tag
     Terraform     = "true"
     Environment   = "Dev"
     ProvisionedBy = "Systango DevOps"
