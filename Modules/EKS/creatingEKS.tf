@@ -98,3 +98,10 @@ resource "aws_iam_role_policy_attachment" "eks_node_role_policy_attachment_ecr" 
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
+output "eks_cluster" {
+  value = aws_eks_cluster.eks_cluster.id
+}
+
+output "eks_node_group" {
+  value = aws_eks_node_group.eks_node_group.id
+}
