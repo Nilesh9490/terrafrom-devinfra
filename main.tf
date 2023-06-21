@@ -71,9 +71,6 @@ module "cloudfront" {
   source                                   = "./Modules/cloudfront"
   count                                    = 0
   aws_s3_bucket_name = module.s3[0].aws_s3_bucket_name
-#   origin_path                              = var.origin_path
-#   default_root_object                      = var.default_root_object
-#   cloudfront_description                   = var.cloudfront_description
   aws_cloudfront_origin_access_identity_id = module.s3[0].aws_cloudfront_origin_access_identity_id
   aws_s3_bucket_regional_domain_name       = module.s3[0].aws_s3_bucket_regional_domain_name
 

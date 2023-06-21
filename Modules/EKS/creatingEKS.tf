@@ -1,20 +1,3 @@
-
-# resource "aws_vpc" "eks_vpc" {
-#   cidr_block = var.vpc_cidr_block
-# }
-
-# resource "aws_subnet" "eks_subnet_az1" {
-#   vpc_id                  = aws_vpc.eks_vpc.id
-#   cidr_block              = var.subnet_cidr_block_az1
-#   availability_zone       = var.availability_zone_az1
-# }
-
-# resource "aws_subnet" "eks_subnet_az2" {
-#   vpc_id                  = aws_vpc.eks_vpc.id
-#   cidr_block              = var.subnet_cidr_block_az2
-#   availability_zone       = var.availability_zone_az2
-# }
-
 resource "aws_eks_cluster" "eks_cluster" {
   name            = var.cluster_name
   role_arn        = aws_iam_role.eks_cluster_role.arn
@@ -22,7 +5,7 @@ resource "aws_eks_cluster" "eks_cluster" {
   vpc_config {
     subnet_ids = var.private_subnets
     endpoint_private_access = true
-    endpoint_public_access  = false
+    endpoint_public_access  = true
   }
 }
 
@@ -55,10 +38,6 @@ resource "aws_eks_node_group" "eks_node_group" {
   cluster_name    = aws_eks_cluster.eks_cluster.name
   node_group_name = var.node_group_name
   node_role_arn   = aws_iam_role.eks_node_role.arn
-#   subnet_ids      = [
-#     aws_subnet.eks_subnet_az1.id,
-#     aws_subnet.eks_subnet_az2.id
-#   ]
     subnet_ids = var.private_subnets
   instance_types = ["t2.micro"]
   scaling_config {

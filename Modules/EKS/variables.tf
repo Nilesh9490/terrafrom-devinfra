@@ -10,21 +10,6 @@ variable "private_subnets" {
   description = "private subnet IDs"
   type        = list(string)
 }
-# variable "security_group_id" {
-#   description = "ID of the security group to associate with the instance"
-# }
-
-# variable "availability_zone_az1" {
-#   description = "Availability Zone for subnet in Availability Zone 1"
-#   type        = string
-# #   default     = "us-west-2a"
-# }
-
-# variable "availability_zone_az2" {
-#   description = "Availability Zone for subnet in Availability Zone 2"
-#   type        = string
-#   default     = "us-west-2b"
-# }
 
 variable "cluster_name" {
   description = "Name of the EKS cluster"
