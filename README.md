@@ -27,6 +27,6 @@ terraform script for aws infrastructure
 
 # 4. Run Following Terraform Commands
 
-- terraform init
-- terraform plan
-- terraform apply
+`terraform init`
+`terraform plan`
+`terraform apply`
