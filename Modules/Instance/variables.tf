@@ -6,28 +6,24 @@ variable "AWS_REGION" {
 default = "eu-west-2"
 }
 
-variable "security_groups"{
-    type = string
-    default = "dev-callahan-marketplace"
-}
+# variable "security_groups"{
+#     type = string
+#     default = ""
+# }
 
 variable "instance_type" {
 type = string
 default = "t3.micro"
 }
 
-variable "iam_instance_profile" {
-  type = string
-  default = "ram_metrix_role"
-}
-
 variable "ebs_block_device_size"{
   default = "30"
 }
-variable "tag_name"{
-  default = "demo-dev"
-  type = string 
-}
+
+# variable "tag_name"{
+#   default = "demo-dev"
+#   type = string 
+# }
 
 variable "AMIS" {
     type = map

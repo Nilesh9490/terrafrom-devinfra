@@ -1,6 +1,6 @@
 # Roles to access the AWS CF
 resource "aws_iam_role" "ram_metrix_role" {
-  name               = "ram_metrix_role"
+  name               = "${terraform.workspace}-ram_metrix_role"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -21,7 +21,7 @@ EOF
 
 #Policy to attach the CF Role
 resource "aws_iam_role_policy" "ram_metrix_role-policy" {
-  name = "ram_metrix_role-policy"
+  name = "${terraform.workspace}ram_metrix_role-policy"
   role = aws_iam_role.ram_metrix_role.id
   policy = <<EOF
 {
@@ -56,7 +56,7 @@ EOF
 
 #Instance identifier
 resource "aws_iam_instance_profile" "instanceprofile" {
-  name = "ram_metrix_role"
+  name = "${terraform.workspace}-ram_metrix_role"
   role = aws_iam_role.ram_metrix_role.name
 }
 

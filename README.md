@@ -1,27 +1,32 @@
-# AWS-CREATE-EC2-Instace-with-RAM-Metrix
+# Prerequisites
+Before using this Terraform code, ensure that you have the following prerequisites installed on your local machine:
 
+- Terraform (version 1.5.0 or later)
+- Git
 
-## Introduction
+# terraform-aws-infra
+terraform script for aws infrastructure
 
-We have created a terraform code to automate the process for Create ec2 instance with RAM metrix.
+# GETTING STARTED 
 
-## Requirements
+# 1. Create Terraform Workspace 
+* use terraform workspace to define name for specific resource / all the resouce will take worspace-name as prefix using following command
 
-- Terraform > 1.1.3
+* terraform workspace new project-test
 
-## Create SSH key Using Following Command
+* remember to create workspace only using lower case alphabets and hyphen 
 
-```
-ssh-keygen -f ssh_key
-```
+# 2. Customize main.tf
 
-## Deployment
+* change count from 0 to desired number in each resource block for creating your desired infrastructure 
 
-```
-terraform init
-terraform plan
-terraform apply
-```
+# 3. Add Your AWS Access Key-pair and Desired Region
 
-In the output, we would get the Cloudfront url
+* generate a set of unique access key-pair using AWS 
+* Add access key and your desired region-code to variable.tf file 
 
+# 4. Run Following Terraform Commands
+
+* terraform init
+* terraform plan
+* terraform apply

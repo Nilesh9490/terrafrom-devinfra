@@ -1,7 +1,7 @@
 #Security Group 
-resource "aws_security_group" "dev-callahan-marketplace" {
+resource "aws_security_group" "sg" {
   vpc_id      = var.vpc_id
-  name        = var.security_groups
+  name        = "${terraform.workspace}-SecurityGroup"
   description = "security group that allows ssh connection"
 
   egress {
@@ -26,12 +26,12 @@ resource "aws_security_group" "dev-callahan-marketplace" {
   }
   
   tags = {
-    Name = var.tag
+    Name = "${terraform.workspace}-SecurityGroup"
   }
 }
 
 
 output "security_group_id" {
-  value = aws_security_group.dev-callahan-marketplace.id
+  value = aws_security_group.sg.id
 }
 

@@ -1,16 +1,3 @@
-variable "aws_security_group_name" {
-    default = "tf-new-sec-grp"
-    description = "Name of DB-Security-Group"
-}
-
-variable "aws_docdb_subnet_group"{
-    default = "tf-new-sub-grp"
-    description = "Name of DB-Subnet-Group"
-}
-
-variable "aws_docdb_cluster_identifier" {
-    default = "tf-identifier"
-}
 
 variable "aws_docdb_cluster_instance_class" {
     default = "db.t3.medium"
@@ -31,9 +18,24 @@ variable "aws_docdb_cluster_parameter_group_family" {
     default = "docdb5.0"
 }   
 
-variable "aws_docdb_cluster_parameter_group_name" {
-    default = "docdbdev"
-}   
+# variable "aws_docdb_cluster_parameter_group_name" {
+#     default = "docdbdev"
+# }   
+
+# variable "aws_security_group_name" {
+#     default = "tf-new-sec-grp"
+#     description = "Name of DB-Security-Group"
+# }
+
+# variable "aws_docdb_subnet_group"{
+#     default = "tf-new-sub-grp"
+#     description = "Name of DB-Subnet-Group"
+# }
+
+# variable "aws_docdb_cluster_identifier" {
+#     default = "tf-identifier"
+# }
+
 variable "vpc_id" {
   description = "VPC ID"
 }

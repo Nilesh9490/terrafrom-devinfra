@@ -1,5 +1,5 @@
 resource "aws_security_group" "service" {
-  name        = var.aws_security_group_name
+  name        = "${terraform.workspace}-docdbsg"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -18,13 +18,13 @@ resource "aws_security_group" "service" {
 }
 
 resource "aws_docdb_subnet_group" "service" {
-  name       = var.aws_docdb_subnet_group
+  name       = "${terraform.workspace}-docdbsubnetg"
   subnet_ids = var.private_subnets
 }
 
 resource "aws_docdb_cluster_instance" "service" {
   count              = 1
-  identifier         = var.aws_docdb_cluster_identifier
+  identifier         = "${terraform.workspace}-cluster-identifier"
   cluster_identifier = aws_docdb_cluster.service.id
   instance_class     = var.aws_docdb_cluster_instance_class
 }
@@ -32,7 +32,7 @@ resource "aws_docdb_cluster_instance" "service" {
 resource "aws_docdb_cluster" "service" {
   skip_final_snapshot            = true
   db_subnet_group_name           = aws_docdb_subnet_group.service.name
-  cluster_identifier             = var.aws_docdb_cluster_identifier
+  cluster_identifier             = "${terraform.workspace}-instance-identifier"
   engine                         = "docdb"
   master_username                = var.master_username
   master_password                = var.master_password
@@ -42,7 +42,7 @@ resource "aws_docdb_cluster" "service" {
 
 resource "aws_docdb_cluster_parameter_group" "service" {
   family = var.aws_docdb_cluster_parameter_group_family
-  name   = var.aws_docdb_cluster_parameter_group_name
+  name   = "${terraform.workspace}-cluster-parameter-group"
 
   parameter {
     name  = "tls"

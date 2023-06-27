@@ -13,13 +13,15 @@ locals {
 }
 
 resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
-  comment = var.s3_bucket_name
+  # comment = var.s3_bucket_name
+  comment = "${terraform.workspace}-s3bucketname"
 }
 
 resource "aws_s3_bucket" "s3Bucket" {
   depends_on = [aws_cloudfront_origin_access_identity.origin_access_identity]  
 
-  bucket = var.s3_bucket_name
+  # bucket = var.s3_bucket_name
+  bucket = "${terraform.workspace}-s3bucketname"
 
   policy = <<EOF
 {
@@ -32,13 +34,15 @@ resource "aws_s3_bucket" "s3Bucket" {
         "AWS": ["${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}"]
       },
       "Action": [ "s3:GetObject" ],
-      "Resource":["arn:aws:s3:::${var.s3_bucket_name}/*"]
+      
+      "Resource":["arn:aws:s3:::${terraform.workspace}-s3bucketname/*"]
     }
   ]
 }
 EOF
 }
-
+##line number 37 ##"Resource":["arn:aws:s3:::${var.s3_bucket_name}/*"]
+######"Resource":["arn:aws:s3:::${terraform.workspace}-s3bucketname/*"]
 resource "aws_s3_bucket_public_access_block" "accessBlock" {
   depends_on = [aws_s3_bucket.s3Bucket]
 
@@ -54,7 +58,8 @@ resource "aws_s3_object" "dist" {
   depends_on = [aws_s3_bucket.s3Bucket]
 
   for_each      = fileset("${var.static_assets_directory}", "*")
-  bucket        = var.s3_bucket_name
+  # bucket        = var.s3_bucket_name
+  bucket = "${terraform.workspace}-s3bucketname"
   key           = each.value
   source        = "${var.static_assets_directory}${each.value}"
   etag          = filemd5("${var.static_assets_directory}${each.value}")

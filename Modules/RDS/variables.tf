@@ -1,13 +1,5 @@
-variable "rds_sg_name"{
-  type = string 
-  default = "rds-security-group"
-  description = "RDS Name"
-}
 
-variable "aws_db_subnet_group_name"{
-  default = "rds-subnet-group"
-  type = string 
-}
+
 variable "allocated_storage" {
   description = "The amount of storage to allocate to the RDS instance (in GB)"
   type        = number
@@ -32,11 +24,6 @@ variable "instance_class" {
   default = "db.t3.micro"
 }
 
-variable "db_name" {
-  description = "The name of the RDS database"
-  type        = string
-  default = "demotest"
-}
 
 variable "db_username" {
   description = "The username for the RDS database"
@@ -49,6 +36,23 @@ variable "db_password" {
   type        = string
   default = "postgres"
 }
+
+# variable "rds_sg_name"{
+#   type = string 
+#   default = "rds-security-group"
+#   description = "RDS Name"
+# }
+
+
+# variable "db_name" {
+#   description = "The name of the RDS database"
+#   type        = string
+#   default = "demotest"
+# }
+# variable "aws_db_subnet_group_name"{
+#   default = "rds-subnet-group"
+#   type = string 
+# }
 
 variable "vpc_id" {
   description = "VPC ID"

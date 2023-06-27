@@ -52,3 +52,9 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 output "cloudfront_domain_name" {
   value = aws_cloudfront_distribution.s3_distribution.domain_name
 }
+
+
+# output "cloudfront_endpoint" {
+#   value       = module.cloudfront[0].cloudfront_domain_name
+#   description = "Cloudfront public dns of the website."
+# }

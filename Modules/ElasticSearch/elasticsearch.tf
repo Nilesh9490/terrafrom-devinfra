@@ -1,5 +1,5 @@
 resource "aws_security_group" "elasticsg" {
-  name        = var.aws_security_group_name
+  name        = "${terraform.workspace}-opensearch-sg"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -18,7 +18,8 @@ resource "aws_security_group" "elasticsg" {
 }
 
 resource "aws_elasticsearch_domain" "es" {
-  domain_name           = var.aws_elasticsearch_domain_name
+  # domain_name           = var.aws_elasticsearch_domain_name
+  domain_name = "${terraform.workspace}-domain"
   elasticsearch_version = "7.10"
 
   cluster_config {
@@ -39,6 +40,7 @@ resource "aws_elasticsearch_domain" "es" {
   }
 
   tags = {
-    Name = var.tag_name
-  }
+    # Name = var.tag_name
+    Name = "${terraform.workspace}-opensearch"
+     }
 }

@@ -3,12 +3,12 @@ resource "aws_key_pair" "ssh_key_name" {
   public_key = file(var.PATH_TO_PUBLIC_KEY)
 }
 
-resource "aws_instance" "demo-dev" {
+resource "aws_instance" "ec2" {
   ami           = lookup(var.AMIS, var.AWS_REGION)
   instance_type = var.instance_type
   subnet_id     = element(var.public_subnets, 0)
   key_name                    = aws_key_pair.ssh_key_name.key_name
-  iam_instance_profile        = "ram_metrix_role"
+  iam_instance_profile        = "${terraform.workspace}-ram_metrix_role"
   security_groups             = [var.security_group_id]
   associate_public_ip_address = true
 
@@ -18,7 +18,8 @@ resource "aws_instance" "demo-dev" {
   }
 
   tags = {
-    Name = var.tag_name
+    
+    Name = "${terraform.workspace}-ec2"  
   }
 
   connection {

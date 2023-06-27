@@ -1,5 +1,5 @@
 resource "aws_eks_cluster" "eks_cluster" {
-  name            = var.cluster_name
+  name            = "${terraform.workspace}-eks"
   role_arn        = aws_iam_role.eks_cluster_role.arn
   version         = var.eks_version
   vpc_config {
@@ -10,7 +10,7 @@ resource "aws_eks_cluster" "eks_cluster" {
 }
 
 resource "aws_iam_role" "eks_cluster_role" {
-  name = var.eks_cluster_role_name
+  name = "${terraform.workspace}-eksrole"
 
   assume_role_policy = <<EOF
 {
@@ -36,7 +36,7 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy_attachment" {
 
 resource "aws_eks_node_group" "eks_node_group" {
   cluster_name    = aws_eks_cluster.eks_cluster.name
-  node_group_name = var.node_group_name
+  node_group_name = "${terraform.workspace}-workernodes"
   node_role_arn   = aws_iam_role.eks_node_role.arn
     subnet_ids = var.private_subnets
   instance_types = ["t2.micro"]
@@ -48,7 +48,7 @@ resource "aws_eks_node_group" "eks_node_group" {
 }
 
 resource "aws_iam_role" "eks_node_role" {
-  name = "eks_node_role"
+  name = "${terraform.workspace}-eks_node_role"
 
   assume_role_policy = <<EOF
 {

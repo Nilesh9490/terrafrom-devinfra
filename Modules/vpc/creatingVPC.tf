@@ -1,7 +1,7 @@
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = var.project_name
+  name = "${terraform.workspace}-vpc"
   cidr = var.cidr_value
 
   azs              = var.az_names
@@ -10,16 +10,15 @@ module "vpc" {
   database_subnets = var.database_subnet_values
 
   # Setup NAT gateway in each AZ.
-  enable_nat_gateway     = true
+  enable_nat_gateway     = true  
   single_nat_gateway     = true
   one_nat_gateway_per_az = false
   enable_vpn_gateway     = false
 
-
   tags = {
-    Projectname   = var.project_name_tag
+    Projectname   = "${terraform.workspace}-vpc"
     Terraform     = "true"
-    Environment   = "Dev"
+    Environment   = terraform.workspace
     ProvisionedBy = "Systango DevOps"
   }
 }
@@ -30,10 +29,6 @@ output "vpc_id" {
 
 output "private_subnets" {
   value = module.vpc.private_subnets
-}
-
-output "public_subnets" {
-  value = module.vpc.public_subnets
 }
 
 output "public_subnets" {
