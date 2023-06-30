@@ -1,6 +1,10 @@
 # variable "key_name" {
 # default = "ssh_key"
 # }
+variable "instance_names" {
+  type    = list(string)
+  default = ["dev-ec2", "qa-ec2"]
+}
 
 variable "AWS_REGION" {
 default = "eu-west-2"

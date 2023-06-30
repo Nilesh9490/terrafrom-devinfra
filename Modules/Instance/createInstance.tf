@@ -4,6 +4,7 @@
 # }
 
 resource "aws_instance" "ec2" {
+  count  = length(var.instance_names)
   ami           = lookup(var.AMIS, var.AWS_REGION)
   instance_type = var.instance_type
   subnet_id     = element(var.private_subnets, 0)
@@ -20,7 +21,8 @@ resource "aws_instance" "ec2" {
 
   tags = {
     
-    Name = "${terraform.workspace}-ec2"  
+    # Name = "$(terraform.workspace)-${var.instance_names[count.index]}"  
+    Name = "${terraform.workspace}-${var.instance_names[count.index]}"
   }
 
   # connection {

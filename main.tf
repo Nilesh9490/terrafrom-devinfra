@@ -37,7 +37,7 @@ module "Instance" {
 
 module "elasticsearch" {
   source         = "./Modules/ElasticSearch"
-  count          = 1
+  count          = 0
   vpc_id         = module.vpc.vpc_id
   # public_subnets = module.vpc.public_subnets
   private_subnets = module.vpc.private_subnets
@@ -71,7 +71,7 @@ module "s3" {
 
 module "cloudfront" {
   source                                   = "./Modules/cloudfront"
-  count                                    = 1
+  count                                    = 0
   aws_s3_bucket_name = module.s3[0].aws_s3_bucket_name
   aws_cloudfront_origin_access_identity_id = module.s3[0].aws_cloudfront_origin_access_identity_id
   aws_s3_bucket_regional_domain_name       = module.s3[0].aws_s3_bucket_regional_domain_name

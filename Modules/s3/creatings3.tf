@@ -21,8 +21,9 @@ resource "aws_s3_bucket" "s3Bucket" {
   depends_on = [aws_cloudfront_origin_access_identity.origin_access_identity]  
 
   # bucket = var.s3_bucket_name
-  bucket = "${terraform.workspace}-s3bucketname"
-
+  # bucket = "${terraform.workspace}-s3bucketname"
+  count = length(var.bucket_names)
+  bucket = "${terraform.workspace}-${var.bucket_names[count.index]}"
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -35,7 +36,7 @@ resource "aws_s3_bucket" "s3Bucket" {
       },
       "Action": [ "s3:GetObject" ],
       
-      "Resource":["arn:aws:s3:::${terraform.workspace}-s3bucketname/*"]
+      "Resource":["arn:aws:s3:::${terraform.workspace}-${var.bucket_names[count.index]}-s3bucketname/*"]
     }
   ]
 }
@@ -46,7 +47,8 @@ EOF
 resource "aws_s3_bucket_public_access_block" "accessBlock" {
   depends_on = [aws_s3_bucket.s3Bucket]
 
-  bucket = aws_s3_bucket.s3Bucket.id
+  count = length(var.bucket_names)
+  bucket = "${terraform.workspace}-${var.bucket_names[count.index]}"
 
   block_public_acls   = true
   block_public_policy = true
@@ -59,7 +61,9 @@ resource "aws_s3_object" "dist" {
 
   for_each      = fileset("${var.static_assets_directory}", "*")
   # bucket        = var.s3_bucket_name
-  bucket = "${terraform.workspace}-s3bucketname"
+  
+  count = length(var.bucket_names)
+  bucket = "${terraform.workspace}-${var.bucket_names[count.index]}"
   key           = each.value
   source        = "${var.static_assets_directory}${each.value}"
   etag          = filemd5("${var.static_assets_directory}${each.value}")
