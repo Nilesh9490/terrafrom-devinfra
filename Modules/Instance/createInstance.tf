@@ -15,7 +15,7 @@ resource "aws_instance" "ec2" {
   associate_public_ip_address = true
 
   ebs_block_device {
-    device_name = "/dev/sda1"
+    device_name = "${terraform.workspace}-${var.ebs_names[count.index]}"
     volume_size = var.ebs_block_device_size
   }
 

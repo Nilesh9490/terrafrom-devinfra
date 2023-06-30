@@ -6,6 +6,11 @@ variable "instance_names" {
   default = ["dev-ec2", "qa-ec2"]
 }
 
+variable "ebs_names" {
+  type    = list(string)
+  default = ["dev-ebs", "qa-ebs"]
+}
+
 variable "AWS_REGION" {
 default = "eu-west-2"
 }
