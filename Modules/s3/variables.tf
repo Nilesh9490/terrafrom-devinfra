@@ -11,7 +11,3 @@ variable "static_assets_directory" {
 }
 
 
-variable "bucket_names" {
-  type    = list(string)
-  default = ["dev-bucket", "qa-bucket"]
-}
