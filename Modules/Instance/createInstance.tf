@@ -1,14 +1,15 @@
-resource "aws_key_pair" "ssh_key_name" {
-  key_name   = var.key_name
-  public_key = file(var.PATH_TO_PUBLIC_KEY)
-}
+# resource "aws_key_pair" "ssh_key_name" {
+#   key_name   = "${terraform.workspace}-ssh_key"
+#   public_key = file(var.PATH_TO_PUBLIC_KEY)
+# }
 
 resource "aws_instance" "ec2" {
   ami           = lookup(var.AMIS, var.AWS_REGION)
   instance_type = var.instance_type
-  subnet_id     = element(var.public_subnets, 0)
-  key_name                    = aws_key_pair.ssh_key_name.key_name
+  subnet_id     = element(var.private_subnets, 0)
+  # key_name                    = aws_key_pair.ssh_key_name.key_name
   iam_instance_profile        = "${terraform.workspace}-ram_metrix_role"
+  user_data = file("Script/install.sh")
   security_groups             = [var.security_group_id]
   associate_public_ip_address = true
 
@@ -22,26 +23,26 @@ resource "aws_instance" "ec2" {
     Name = "${terraform.workspace}-ec2"  
   }
 
-  connection {
-    host        = coalesce(self.public_ip)
-    type        = "ssh"
-    user        = var.INSTANCE_USERNAME
-    private_key = file(var.PATH_TO_PRIVATE_KEY)
-    timeout     = "1m"
-  }
+  # connection {
+  #   host        = coalesce(self.public_ip)
+  #   type        = "ssh"
+  #   user        = var.INSTANCE_USERNAME
+  #   private_key = file(var.PATH_TO_PRIVATE_KEY)
+  #   timeout     = "1m"
+  # }
 
 
-  provisioner "file" {
-    source      = "Script/install.sh"
-    destination = "/tmp/install.sh"
-  }
+  # provisioner "file" {
+  #   source      = "Script/install.sh"
+  #   destination = "/tmp/install.sh"
+  # }
 
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x /tmp/install.sh",
-      "sudo sed -i -e 's/\r$//' /tmp/install.sh", # Remove the spurious CR characters.
-      "sudo /tmp/install.sh",
-    ]
-  }
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "chmod +x /tmp/install.sh",
+  #     "sudo sed -i -e 's/\r$//' /tmp/install.sh", # Remove the spurious CR characters.
+  #     "sudo /tmp/install.sh",
+  #   ]
+  # }
 
 }

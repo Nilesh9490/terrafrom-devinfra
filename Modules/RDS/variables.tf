@@ -3,7 +3,7 @@
 variable "allocated_storage" {
   description = "The amount of storage to allocate to the RDS instance (in GB)"
   type        = number
-  default = 20
+  default = 30
 }
 
 variable "engine" {
@@ -15,13 +15,13 @@ variable "engine" {
 variable "engine_version" {
   description = "The version of the database engine to use for the RDS instance"
   type        = string
-  default = "15.2"
+  default = "14.7"
 }
 
 variable "instance_class" {
   description = "The instance type of the RDS instance"
   type        = string
-  default = "db.t3.micro"
+  default = "db.t3.small"
 }
 
 

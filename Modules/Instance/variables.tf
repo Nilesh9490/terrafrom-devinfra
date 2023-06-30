@@ -1,6 +1,6 @@
-variable "key_name" {
-default = "ssh_key"
-}
+# variable "key_name" {
+# default = "ssh_key"
+# }
 
 variable "AWS_REGION" {
 default = "eu-west-2"
@@ -13,7 +13,7 @@ default = "eu-west-2"
 
 variable "instance_type" {
 type = string
-default = "t3.micro"
+default = "t3.medium"
 }
 
 variable "ebs_block_device_size"{
@@ -28,7 +28,7 @@ variable "ebs_block_device_size"{
 variable "AMIS" {
     type = map
     default = {
-        eu-west-2 = "ami-007ec828a062d87a5"
+        eu-west-2 = "ami-0eb260c4d5475b901"
     }
 }
 
@@ -48,8 +48,13 @@ variable "vpc_id" {
   description = "VPC ID"
 }
 
-variable "public_subnets" {
-  description = "public subnet IDs"
+# variable "public_subnets" {
+#   description = "public subnet IDs"
+#   type        = list(string)
+# }
+
+variable "private_subnets" {
+  description = "private subnet IDs"
   type        = list(string)
 }
 

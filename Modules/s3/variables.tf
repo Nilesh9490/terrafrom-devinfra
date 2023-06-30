@@ -6,7 +6,7 @@
 
 variable "static_assets_directory" {
     type = string
-    default = "/Users/macbook11/Documents/work/DevOps/Terraform/frontend-deployment/build/"
+    default = "index.html"
     description = "Absolute path of the code directory"
 }
 
