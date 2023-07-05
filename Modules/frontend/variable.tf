@@ -1,6 +1,15 @@
-variable "aws_s3_bucket_name" {}
-variable "aws_cloudfront_origin_access_identity_id" {}
-variable "aws_s3_bucket_regional_domain_name" {}
+
+variable "s3_bucket_name" {
+    type = string
+    default = "s3bucket-testdemoo"
+}
+
+variable "static_assets_directory" {
+    type = string
+    default = "index.html"
+    description = "Absolute path of the code directory"
+}
+
 
 
 variable "default_root_object" {
