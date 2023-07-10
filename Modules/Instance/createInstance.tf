@@ -3,9 +3,9 @@ resource "aws_key_pair" "ssh_key_name" {
   public_key = file(var.PATH_TO_PUBLIC_KEY)
 }
 resource "aws_instance" "pub-ec2" {
-  ami = var.ami2
+  ami = var.ami2                              
   instance_type = var.instance_type2
-  subnet_id     = element(var.public_subents, 0)
+  subnet_id     = element(var.public_subnets, 0)
   key_name                    = aws_key_pair.ssh_key_name.key_name
 }
 resource "aws_instance" "ec2" {

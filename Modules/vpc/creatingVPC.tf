@@ -10,8 +10,8 @@ module "vpc" {
   database_subnets = var.database_subnet_values
 
   # Setup NAT gateway in each AZ.
-  enable_nat_gateway     = true  
-  single_nat_gateway     = true
+  enable_nat_gateway     = false  
+  single_nat_gateway     = false
   one_nat_gateway_per_az = false
   enable_vpn_gateway     = false
 

@@ -1,9 +1,12 @@
 
+# variable "s3_bucket_name" {
+#     type = string
+#     default = "s3bucket-testdemoo"
+# }
 variable "s3_bucket_name" {
-    type = string
-    default = "s3bucket-testdemoo"
+  type    = list(string)
+  default = ["dev-qwertyuiop-s3", "qa-qwertyuiop-s3"]
 }
-
 variable "static_assets_directory" {
     type = string
     default = "index.html"

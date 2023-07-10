@@ -24,7 +24,7 @@ module "Security_Group" {
 }
 module "NLB" {
   source     = "./Modules/NLB"
-  count      = 1
+  count      = 0
   vpc_id     = module.vpc.vpc_id
   private_subnets   = module.vpc.private_subnets
   # public_subnets    = module.vpc.public_subnets
@@ -33,7 +33,7 @@ module "NLB" {
 
 module "apigateway" {
   source     = "./Modules/Api-Gateway"
-  count      = 1
+  count      = 0
   lb_arn = module.NLB[0].lb_arn
   depends_on = [module.NLB]
 
@@ -44,7 +44,7 @@ module "Instance" {
   count             = 0
   vpc_id            = module.vpc.vpc_id
   private_subnets   = module.vpc.private_subnets
-  # public_subnets    = module.vpc.public_subnets
+  public_subnets    = module.vpc.public_subnets
   security_group_id = module.Security_Group[0].security_group_id
   depends_on = [
     module.IAM_Role, module.Security_Group, module.vpc
@@ -53,7 +53,7 @@ module "Instance" {
 
 module "frontend" {
   source                                   = "./Modules/frontend"
-  count                                    = 0
+  count                                    = 1
 }
 
 module "elasticsearch" {
