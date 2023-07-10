@@ -4,7 +4,7 @@ variable "AWS_ACCESS_KEY" {
 }
 variable "AWS_SECRET_KEY" {
   type    = string
-  default = "xxxxx"
+  default = "xxxx"
 }
 
 variable "AWS_REGION" {

@@ -19,6 +19,15 @@ default = "eu-west-2"
 #     type = string
 #     default = ""
 # }
+variable "instance_type2" {
+type = string
+default = "t3.micro"
+description = "ec2 for ssh"
+}
+
+variable "ami2"{
+  default = "ami-007ec828a062d87a5"
+}
 
 variable "instance_type" {
 type = string
@@ -57,10 +66,10 @@ variable "vpc_id" {
   description = "VPC ID"
 }
 
-# variable "public_subnets" {
-#   description = "public subnet IDs"
-#   type        = list(string)
-# }
+variable "public_subnets" {
+  description = "public subnet IDs"
+  type        = list(string)
+}
 
 variable "private_subnets" {
   description = "private subnet IDs"

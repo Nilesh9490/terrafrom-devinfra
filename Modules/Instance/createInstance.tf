@@ -1,8 +1,13 @@
-# resource "aws_key_pair" "ssh_key_name" {
-#   key_name   = "${terraform.workspace}-ssh_key"
-#   public_key = file(var.PATH_TO_PUBLIC_KEY)
-# }
-
+resource "aws_key_pair" "ssh_key_name" {
+  key_name   = "${terraform.workspace}-ssh_key"
+  public_key = file(var.PATH_TO_PUBLIC_KEY)
+}
+resource "aws_instance" "pub-ec2" {
+  ami = var.ami2
+  instance_type = var.instance_type2
+  subnet_id     = element(var.public_subents, 0)
+  key_name                    = aws_key_pair.ssh_key_name.key_name
+}
 resource "aws_instance" "ec2" {
   count  = length(var.instance_names)
   ami           = lookup(var.AMIS, var.AWS_REGION)

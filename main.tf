@@ -31,6 +31,14 @@ module "NLB" {
   depends_on = [module.vpc]
 }
 
+module "apigateway" {
+  source     = "./Modules/Api-Gateway"
+  count      = 1
+  lb_arn = module.NLB[0].lb_arn
+  depends_on = [module.NLB]
+
+}
+
 module "Instance" {
   source            = "./Modules/Instance"
   count             = 0
