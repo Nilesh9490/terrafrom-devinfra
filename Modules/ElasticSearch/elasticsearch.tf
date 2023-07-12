@@ -19,7 +19,7 @@ resource "aws_security_group" "elasticsg" {
 
 resource "aws_elasticsearch_domain" "es" {
   # domain_name           = var.aws_elasticsearch_domain_name
-  domain_name = "${terraform.workspace}-domain"
+  domain_name = "${terraform.workspace}-search"
   elasticsearch_version = "7.10"
 
   cluster_config {

@@ -6,27 +6,27 @@ module "rds" {
   source          = "./Modules/RDS"
   vpc_id          = module.vpc.vpc_id
   private_subnets = module.vpc.private_subnets
-  count           = 0
+  count           = 1
 }
 
 module "IAM_Role" {
   source = "./Modules/IAM_Role"
-  count  = 0
+  count  = 1
 
 }
 
 module "Security_Group" {
   source     = "./Modules/Security_Group"
-  count      = 0
+  count      = 1
   vpc_id     = module.vpc.vpc_id
   depends_on = [module.vpc]
 
 }
 module "NLB" {
-  source     = "./Modules/NLB"
-  count      = 0
-  vpc_id     = module.vpc.vpc_id
-  private_subnets   = module.vpc.private_subnets
+  source          = "./Modules/NLB"
+  count           = 0
+  vpc_id          = module.vpc.vpc_id
+  private_subnets = module.vpc.private_subnets
   # public_subnets    = module.vpc.public_subnets
   depends_on = [module.vpc]
 }
@@ -34,14 +34,14 @@ module "NLB" {
 module "apigateway" {
   source     = "./Modules/Api-Gateway"
   count      = 0
-  lb_arn = module.NLB[0].lb_arn
+  lb_arn     = module.NLB[0].lb_arn
   depends_on = [module.NLB]
 
 }
 
 module "Instance" {
   source            = "./Modules/Instance"
-  count             = 0
+  count             = 1
   vpc_id            = module.vpc.vpc_id
   private_subnets   = module.vpc.private_subnets
   public_subnets    = module.vpc.public_subnets
@@ -52,24 +52,34 @@ module "Instance" {
 }
 
 module "frontend" {
-  source                                   = "./Modules/frontend"
-  count                                    = 1
+  source = "./Modules/frontend"
+  count  = 1
 }
 
 module "elasticsearch" {
-  source         = "./Modules/ElasticSearch"
-  count          = 0
-  vpc_id         = module.vpc.vpc_id
+  source = "./Modules/ElasticSearch"
+  count  = 1
+  vpc_id = module.vpc.vpc_id
   # public_subnets = module.vpc.public_subnets
   private_subnets = module.vpc.private_subnets
-  depends_on     = [module.vpc]
+  depends_on      = [module.vpc]
 
 }
 
 module "docdb" {
-  source          = "./Modules/DocDB"
-  count           = 0
-  vpc_id          = module.vpc.vpc_id
+  source = "./Modules/DocDB"
+  count  = 0
+  vpc_id = module.vpc.vpc_id
+  # public_subnets  = module.vpc.public_subnets
+  private_subnets = module.vpc.private_subnets
+  depends_on      = [module.vpc]
+
+}
+
+module "ECS" {
+  source = "./Modules/ecs"
+  count  = 0
+  # vpc_id = module.vpc.vpc_id
   # public_subnets  = module.vpc.public_subnets
   private_subnets = module.vpc.private_subnets
   depends_on      = [module.vpc]
@@ -77,9 +87,9 @@ module "docdb" {
 }
 
 module "eks" {
-  source          = "./Modules/EKS"
-  count           = 0
-  vpc_id          = module.vpc.vpc_id
+  source = "./Modules/EKS"
+  count  = 0
+  vpc_id = module.vpc.vpc_id
   # public_subnets  = module.vpc.public_subnets
   private_subnets = module.vpc.private_subnets
   depends_on      = [module.vpc]

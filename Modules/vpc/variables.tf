@@ -3,7 +3,7 @@
 variable "cidr_value" {
   description = "The CIDR block for the VPC."
   type        = string
-  default = "10.0.0.0/16"
+  default = "172.0.0.0/16"
   
 }
 
@@ -18,21 +18,21 @@ variable "public_subnet_values" {
   description = "A list of public subnet CIDR blocks."
   type        = list(string)
   # public_subnet_values = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-  default = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+  default = ["172.0.1.0/24", "172.0.2.0/24", "172.0.3.0/24"]
 }
 
 variable "private_subnet_values" {
   description = "A list of private subnet CIDR blocks."
   type        = list(string)
   # private_subnet_values = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"]
-  default = ["10.0.11.0/24", "10.0.12.0/24" , "10.0.13.0/24"]
+  default = ["172.0.11.0/24", "172.0.12.0/24" , "172.0.13.0/24"]
 }
 
-variable "database_subnet_values" {
-  description = "A list of database subnet CIDR blocks."
-  type        = list(string)
-  default = ["10.0.21.0/24", "10.0.22.0/24", "10.0.23.0/24"]
-}
+# variable "database_subnet_values" {
+#   description = "A list of database subnet CIDR blocks."
+#   type        = list(string)
+#   default = ["172.0.21.0/24", "172.0.22.0/24", "172.0.23.0/24"]
+# }
 
 
 # variable "workspace_name" {

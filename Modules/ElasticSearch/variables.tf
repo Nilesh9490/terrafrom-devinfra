@@ -8,7 +8,7 @@ variable "ebs_options_volume_type"{
   default = "gp2"
 }
 variable "ebs_options_volume_size"{
-  default = "10"
+  default = "30"
 }
 
 variable "vpc_id" {

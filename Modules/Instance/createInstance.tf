@@ -8,6 +8,7 @@ resource "aws_instance" "pub-ec2" {
   subnet_id     = element(var.public_subnets, 0)
   key_name                    = aws_key_pair.ssh_key_name.key_name
 }
+
 resource "aws_instance" "ec2" {
   count  = length(var.instance_names)
   ami           = lookup(var.AMIS, var.AWS_REGION)
@@ -31,26 +32,26 @@ resource "aws_instance" "ec2" {
     Name = "${terraform.workspace}-${var.instance_names[count.index]}"
   }
 
-  # connection {
-  #   host        = coalesce(self.public_ip)
-  #   type        = "ssh"
-  #   user        = var.INSTANCE_USERNAME
-  #   private_key = file(var.PATH_TO_PRIVATE_KEY)
-  #   timeout     = "1m"
-  # }
+  connection {
+    host        = coalesce(self.public_ip)
+    type        = "ssh"
+    user        = var.INSTANCE_USERNAME
+    private_key = file(var.PATH_TO_PRIVATE_KEY)
+    timeout     = "1m"
+  }
 
 
-  # provisioner "file" {
-  #   source      = "Script/install.sh"
-  #   destination = "/tmp/install.sh"
-  # }
+  provisioner "file" {
+    source      = "Script/install.sh"
+    destination = "/tmp/install.sh"
+  }
 
-  # provisioner "remote-exec" {
-  #   inline = [
-  #     "chmod +x /tmp/install.sh",
-  #     "sudo sed -i -e 's/\r$//' /tmp/install.sh", # Remove the spurious CR characters.
-  #     "sudo /tmp/install.sh",
-  #   ]
-  # }
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/install.sh",
+      "sudo sed -i -e 's/\r$//' /tmp/install.sh", # Remove the spurious CR characters.
+      "sudo /tmp/install.sh",
+    ]
+  }
 
 }

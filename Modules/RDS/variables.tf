@@ -34,7 +34,7 @@ variable "db_username" {
 variable "db_password" {
   description = "The password for the RDS database"
   type        = string
-  default = "postgres"
+  default = "VpRsU@214q"
 }
 
 # variable "rds_sg_name"{
